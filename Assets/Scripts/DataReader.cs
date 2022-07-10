@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class DataReader : MonoBehaviour
 {
-    private void Awake()
-    {
-        ReadData();
-    }
+
     void ReadData()
     {
         int numberOfLocation = 0;
@@ -24,7 +21,7 @@ public class DataReader : MonoBehaviour
                 // leave the header
                 if (count == -1) continue;
                 string dataString = reader.ReadLine();
-                if (count==100)
+                if (dataString == null)
                 {
                     endOfFile = true;
                     numberOfLocation = count - 1;
@@ -54,7 +51,7 @@ public class DataReader : MonoBehaviour
                 // leave the header
                 if (count == -1) continue;
                 string dataString = reader.ReadLine();
-                if (count==100)
+                if (dataString == null)
                 {
                     endOfFile = true;
                     break;
@@ -73,7 +70,7 @@ public class DataReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        ReadData();
     }
 
     // Update is called once per frame
