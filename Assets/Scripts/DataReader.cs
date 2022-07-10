@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class DataReader : MonoBehaviour
+public class DataReader 
 {
     public TextAsset destinationData;
     public TextAsset distanceData;
 
-    void ReadData()
+    public DataReader(TextAsset destinationData, TextAsset distanceData) {
+        this.destinationData = destinationData;
+        this.distanceData = distanceData;
+    }
+    public Destination[] ReadDestination()
     {
         int numberOfLocation = 100;
         double[,] distance = new double[numberOfLocation, numberOfLocation];
@@ -28,9 +32,18 @@ public class DataReader : MonoBehaviour
                 Rating = float.Parse(values[6])
             };
         }
+        return destinations;
         
+       
+        
+
+    }
+    public float[,] ReadDistance() {
+        int numberOfLocation = 100;
+        float[,] distance = new float[numberOfLocation, numberOfLocation];
+        Destination[] destinations = new Destination[numberOfLocation];
         string[] distanceArray = distanceData.text.Split("\n");
-        
+
         for (int i = 0; i < numberOfLocation; i++)
         {
             var values = distanceArray[i + 1].Split(",");
@@ -39,22 +52,7 @@ public class DataReader : MonoBehaviour
                 distance[i, j] = float.Parse(values[j + 1]);
             }
         }
-        
-
+        return distance;
     }
-    private void Awake()
-    {
-        ReadData();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

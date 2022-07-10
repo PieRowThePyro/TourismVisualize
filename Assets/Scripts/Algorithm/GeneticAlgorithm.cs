@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GeneticAlgorithm : MonoBehaviour
+public class GeneticAlgorithm
 {
     int populationCount;
     float selectionRate;
@@ -42,6 +42,7 @@ public class GeneticAlgorithm : MonoBehaviour
             next_population.Add(Mutation(population[ran],data));
         }
         population = new List<Solution>(next_population);
+        Debug.Log("done");
     }
     public Solution GenerateSolution(Data data)
     {

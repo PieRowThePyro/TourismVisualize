@@ -38,7 +38,7 @@ public class Data
 
     public Data()
     {
-        this.P = 190;
+        this.P = 100;
         this.K = 5;
         this.S = 15000;
         this.C = 10;
