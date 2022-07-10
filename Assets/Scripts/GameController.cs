@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     GameObject destinationPrefab;
 
-    List<int> desSet1 = new List<int>() { 1, 5, 6, 3, 8};
+    List<int> desSet1 = new List<int>() { 1, 5, 6, 3, 8, 9, 12, 41, 56, 98};
     List<int> desSet2 = new List<int>() { 9, 12, 49, 2, 78, 6, 4};
 
     [SerializeField]
@@ -21,29 +21,30 @@ public class GameController : MonoBehaviour
     string filename;
     string filenameDis;
     // Start is called before the first frame update
-    void Start()
+    public void StartBtn()
     {
         filename = Application.dataPath + "/DestinationCSV.csv";
         filename = Application.dataPath + "/DistanceCSV.csv";
         for (int i = 0; i < desCount; i++)
         {
-            float randomX = Random.Range(-8f, 8f);
+            float randomX = Random.Range(-8f, 3f);
             float randomY = Random.Range(-4f, 4f);
             GameObject desTemp = Instantiate(destinationPrefab, new Vector3(randomX, randomY, 0), Quaternion.identity);
             destinations.Add(desTemp);
         }
-        WriteToCSV();
-        CalculateDistance();
+        //WriteToCSV();
+        //CalculateDistance();
         GetLines(desSet1);
-
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
         if (findingPath)
         {
-            if (timer > 0.5f)
+            if (timer > 0.3f)
             {
                 linesToBeActive[0].SetActive(true);
                 linesToBeActive.RemoveAt(0);
@@ -107,6 +108,7 @@ public class GameController : MonoBehaviour
     {
         if (destinations.Count > 0)
         {
+            
             TextWriter tw = new StreamWriter(filename, false);
             string header = ",";
             for (int i = 1; i <= destinations.Count; i++)
