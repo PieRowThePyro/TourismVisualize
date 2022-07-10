@@ -5,11 +5,46 @@ using UnityEngine;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
-    
+    int populationCount;
+    float selectionRate;
+    float crossoverRate;
+    float mutationRate;
+    Data data;
+    List<Solution> population;
+    public GeneticAlgorithm(Data data, int populationCount, float selectionRate , float crossoverRate, float mutationRate ) {
+        this.data = data;
+        this.populationCount = populationCount;
+        population = new List<Solution>();
+        for (int i = 0; i <populationCount; i++) {
+            population.Add(GenerateSolution(data));
+;        }
+        this.selectionRate = selectionRate;
+        this.crossoverRate = crossoverRate;
+        this.mutationRate = mutationRate;
+    }
 
+    public void Evolve() {
+        List<Solution> next_population = new List<Solution>();
+        int selectionSize =Mathf.FloorToInt(selectionRate * populationCount);
+        population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
+        for (int i = 0; i < selectionSize; i++) {
+            next_population.Add(population[i]);
+        }
+        int crossoverSize = populationCount - selectionSize;
+        for (int i = 0;i< crossoverSize; i++) {
+            int mom=Random.Range(0, populationCount);
+            next_population.Add(Crossover(population[mom], data));
+        }
+        population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
+        int MutationSize = Mathf.FloorToInt(mutationRate * populationCount);
+        for (int i = 0; i < MutationSize; i++) {
+            int ran = Random.Range(Mathf.FloorToInt(selectionSize / 2), populationCount);
+            next_population.Add(Mutation(population[ran],data));
+        }
+        population = new List<Solution>(next_population);
+    }
     public Solution GenerateSolution(Data data)
     {
-        List<Solution> generation = new List<Solution>();
         List<int> fullTrip = Enumerable.Range(0, data.P).ToList();
         fullTrip.Shuffle();
         Solution s = new Solution(data);
