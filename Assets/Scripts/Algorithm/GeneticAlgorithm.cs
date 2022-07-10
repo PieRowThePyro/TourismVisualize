@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
+    
 
     public Solution GenerateSolution(Data data)
     {
