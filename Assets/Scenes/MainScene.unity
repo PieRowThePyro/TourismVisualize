@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd77f53f9743f14d8d4be3b9576d8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinationData: {fileID: 4900000, guid: 16f1f2483e096744b863c1447e62741e, type: 3}
+  distanceData: {fileID: 4900000, guid: a3734253a3c27c644ab66a4fde4c1860, type: 3}
 --- !u!81 &22512460
 AudioListener:
   m_ObjectHideFlags: 0
