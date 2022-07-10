@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Destination : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Vector2 Location { get; set; }
+    public float Start { get; set; }
+    public float End { get; set; }
+    public float Duration { get; set; }
+    public float Cost { get; set; }
 }
