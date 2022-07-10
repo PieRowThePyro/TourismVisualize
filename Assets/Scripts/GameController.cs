@@ -108,24 +108,25 @@ public class GameController : MonoBehaviour
         if (destinations.Count > 0)
         {
             TextWriter tw = new StreamWriter(filename, false);
-            tw.WriteLine("Point 1, Point 2, Distance");
+            string header = ",";
+            for (int i = 1; i <= destinations.Count; i++)
+            {
+                header += i + ",";
+            }
+            tw.WriteLine(header);
             tw.Close();
 
             tw = new StreamWriter(filename, true);
             for (int i = 0; i < destinations.Count; i++)
             {
+                int currentI = i + 1;
+                string distanceRow = currentI + ",";
                 for (int j = 0; j < destinations.Count; j++)
                 {
-                    if (i != j)
-                    {
-                        float dis = Vector3.Distance(destinations[i].transform.position, destinations[j].transform.position);
-                        string temp = "(" + destinations[i].transform.position.x + ";" + destinations[i].transform.position.y + ")";
-                        temp += "," + "(" + destinations[j].transform.position.x + ";" + destinations[j].transform.position.y + ")";
-                        temp += "," + dis;
-                        tw.WriteLine(temp);
-                    }
+                    float dis = Vector3.Distance(destinations[i].transform.position, destinations[j].transform.position);
+                    distanceRow += dis + ",";
                 }
-
+                tw.WriteLine(distanceRow);
             }
             tw.Close();
         }
