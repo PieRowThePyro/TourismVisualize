@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Solution
 {
-    public List<List<int>> gene;
+    public List<List<int>> gene; //{[1,2,3],[4,5,6]}
     private Data data;
 
     public Solution(Data data)

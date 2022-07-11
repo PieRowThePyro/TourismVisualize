@@ -26,7 +26,7 @@ public class GeneticAlgorithm
     public void Evolve() {
         List<Solution> next_population = new List<Solution>();
         int selectionSize =Mathf.FloorToInt(selectionRate * populationCount);
-        population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
+        
         for (int i = 0; i < selectionSize; i++) {
             next_population.Add(population[i]);
         }
@@ -39,10 +39,12 @@ public class GeneticAlgorithm
         int MutationSize = Mathf.FloorToInt(mutationRate * populationCount);
         for (int i = 0; i < MutationSize; i++) {
             int ran = Random.Range(Mathf.FloorToInt(selectionSize / 2), populationCount);
-            next_population.Add(Mutation(population[ran],data));
+            next_population[ran]=Mutation(next_population[ran],data);
         }
+        
         population = new List<Solution>(next_population);
-        Debug.Log("done");
+        population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
+        Debug.Log(population[0].cal_fitness());
     }
     public Solution GenerateSolution(Data data)
     {
