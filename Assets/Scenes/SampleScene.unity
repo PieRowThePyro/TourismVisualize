@@ -195,7 +195,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 55.95, y: -214.6}
+  m_AnchoredPosition: {x: 55.950012, y: -214.6}
   m_SizeDelta: {x: -146.87, y: 17.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &132362453
@@ -464,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -214.6}
+  m_AnchoredPosition: {x: -22.54004, y: -214.6}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &229932168
@@ -675,7 +675,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.3899994, y: -407.2}
+  m_AnchoredPosition: {x: -0.39001465, y: -407.2}
   m_SizeDelta: {x: -29.309998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264810360
@@ -723,12 +723,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1955259459}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
+  m_Value: 33
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1567557610}
+        m_TargetAssemblyTypeName: SliderController, Assembly-CSharp
+        m_MethodName: ProblemSizeSilder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &285068231
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 55.95, y: -251}
+  m_AnchoredPosition: {x: 55.950012, y: -251}
   m_SizeDelta: {x: -146.87, y: 17.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285068233
@@ -901,7 +913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.3899994, y: -265.80002}
+  m_AnchoredPosition: {x: -0.39001465, y: -265.80002}
   m_SizeDelta: {x: -29.309998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327118648
@@ -951,10 +963,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.23
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1567557610}
+        m_TargetAssemblyTypeName: SliderController, Assembly-CSharp
+        m_MethodName: ElitismRateSilder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &382123408
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +1016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.99996185, y: -454.10004}
+  m_AnchoredPosition: {x: 0.99993896, y: -454.10004}
   m_SizeDelta: {x: -91.45, y: 48.950012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382123410
@@ -1876,7 +1900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -392.40002}
+  m_AnchoredPosition: {x: -22.54004, y: -392.40002}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1008774773
@@ -2048,7 +2072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 55.95, y: -287.5}
+  m_AnchoredPosition: {x: 55.950012, y: -287.5}
   m_SizeDelta: {x: -146.87, y: 17.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105285052
@@ -2428,7 +2452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -324.90002}
+  m_AnchoredPosition: {x: -22.54004, y: -324.90002}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189598507
@@ -2600,7 +2624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 55.95, y: -324.90002}
+  m_AnchoredPosition: {x: 55.950012, y: -324.90002}
   m_SizeDelta: {x: -146.87, y: 17.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1229219854
@@ -2772,7 +2796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 55.95, y: -392.40002}
+  m_AnchoredPosition: {x: 55.950012, y: -392.40002}
   m_SizeDelta: {x: -146.87, y: 17.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311238158
@@ -3375,7 +3399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.3899994, y: -229.4}
+  m_AnchoredPosition: {x: -0.39001465, y: -229.4}
   m_SizeDelta: {x: -29.309998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450396333
@@ -3425,10 +3449,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.4
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1567557610}
+        m_TargetAssemblyTypeName: SliderController, Assembly-CSharp
+        m_MethodName: MutationRateSilder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1524561657
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,7 +3500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1524561659
@@ -3736,7 +3772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.3899994, y: -339.7}
+  m_AnchoredPosition: {x: -0.39001465, y: -339.7}
   m_SizeDelta: {x: -29.309998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539554848
@@ -3786,10 +3822,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.13
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1567557610}
+        m_TargetAssemblyTypeName: SliderController, Assembly-CSharp
+        m_MethodName: PoolSizeSilder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1553687372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3837,6 +3885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1567557609}
   - component: {fileID: 1567557608}
+  - component: {fileID: 1567557610}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -3858,6 +3907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationPrefab: {fileID: 7064682282943869877, guid: 6c66800f383c06646bb984461a244c62, type: 3}
   desCount: 100
+  desFile: {fileID: 4900000, guid: 16f1f2483e096744b863c1447e62741e, type: 3}
+  disFile: {fileID: 4900000, guid: a3734253a3c27c644ab66a4fde4c1860, type: 3}
 --- !u!4 &1567557609
 Transform:
   m_ObjectHideFlags: 0
@@ -3873,6 +3924,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1567557610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567557607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d70e68f742eda4da0c442534654ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1742999484}
 --- !u!1 &1661282336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,7 +3974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.3899994, y: -302.30002}
+  m_AnchoredPosition: {x: -0.39001465, y: -302.30002}
   m_SizeDelta: {x: -29.309998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1661282338
@@ -3960,10 +4024,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.68
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1567557610}
+        m_TargetAssemblyTypeName: SliderController, Assembly-CSharp
+        m_MethodName: CrossoverRateSilder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1742999484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4021,8 +4097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -146.26001, y: 0}
-  m_SizeDelta: {x: 238.53, y: -38}
+  m_AnchoredPosition: {x: -146.25995, y: 0}
+  m_SizeDelta: {x: 238.53003, y: -38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1742999486
 MonoBehaviour:
@@ -4097,7 +4173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -194.46002}
+  m_AnchoredPosition: {x: -22.54004, y: -194.46002}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1780907910
@@ -4308,7 +4384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1857501375
@@ -4544,7 +4620,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -368.2}
+  m_AnchoredPosition: {x: -22.54004, y: -368.2}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1864413651
@@ -4889,7 +4965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1919683222
@@ -5178,7 +5254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.9999695, y: -31.900024}
+  m_AnchoredPosition: {x: 1, y: -31.900024}
   m_SizeDelta: {x: -35.51, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968079661
@@ -5478,7 +5554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -251}
+  m_AnchoredPosition: {x: -22.54004, y: -251}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131039516
@@ -5714,7 +5790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.54007, y: -287.5}
+  m_AnchoredPosition: {x: -22.54004, y: -287.5}
   m_SizeDelta: {x: -79.119995, y: 17.970001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140567823

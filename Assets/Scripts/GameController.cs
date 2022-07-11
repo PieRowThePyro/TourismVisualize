@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
     public void StartBtn()
     {
         filename = Application.dataPath + "/DestinationCSV.csv";
-        filenameDis = Application.dataPath + "/DistanceCSV2.csv";
+        filenameDis = Application.dataPath + "/DistanceCSV.csv";
         DataReader reader = new DataReader(desFile, disFile);
         destinations = reader.ReadDestination();
         foreach (var des in destinations)
@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
             GameObject desTemp = Instantiate(destinationPrefab, des.Location, Quaternion.identity);
         }
         //WriteToCSV();
-        CalculateDistance();
+        //CalculateDistance();
         GetLines(desSet1);
     }
 
