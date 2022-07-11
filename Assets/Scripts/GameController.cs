@@ -15,25 +15,29 @@ public class GameController : MonoBehaviour
     int desCount;
     float timer = 0;
     bool findingPath = false;
-    List<GameObject> destinations = new List<GameObject>();
+    Destination[] destinations;
     List<GameObject> currentLines = new List<GameObject>();
     List<GameObject> linesToBeActive = new List<GameObject>();
     string filename;
     string filenameDis;
+    [SerializeField]
+    TextAsset desFile;
+    [SerializeField]
+    TextAsset disFile;
+
     // Start is called before the first frame update
     public void StartBtn()
     {
         filename = Application.dataPath + "/DestinationCSV.csv";
-        filename = Application.dataPath + "/DistanceCSV.csv";
-        for (int i = 0; i < desCount; i++)
+        filenameDis = Application.dataPath + "/DistanceCSV2.csv";
+        DataReader reader = new DataReader(desFile, disFile);
+        destinations = reader.ReadDestination();
+        foreach (var des in destinations)
         {
-            float randomX = Random.Range(-8f, 3f);
-            float randomY = Random.Range(-4f, 4f);
-            GameObject desTemp = Instantiate(destinationPrefab, new Vector3(randomX, randomY, 0), Quaternion.identity);
-            destinations.Add(desTemp);
+            GameObject desTemp = Instantiate(destinationPrefab, des.Location, Quaternion.identity);
         }
         //WriteToCSV();
-        //CalculateDistance();
+        CalculateDistance();
         GetLines(desSet1);
     }
 
@@ -59,8 +63,8 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < desSet.Count - 1; i++)
         {
-            Vector3 des = destinations[desSet[i]].transform.position;
-            Vector3 desNext = destinations[desSet[i + 1]].transform.position;
+            Vector3 des = destinations[desSet[i]].Location;
+            Vector3 desNext = destinations[desSet[i + 1]].Location;
             GameObject line = new GameObject("Line");
             LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
             lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
@@ -89,16 +93,16 @@ public class GameController : MonoBehaviour
     }
     public void WriteToCSV()
     {
-        if (destinations.Count > 0)
+        if (destinations.Length > 0)
         {
             TextWriter tw = new StreamWriter(filename, false);
             tw.WriteLine("X, Y");
             tw.Close();
 
             tw = new StreamWriter(filename, true);
-            for (int i = 0; i < destinations.Count; i++)
+            for (int i = 0; i < destinations.Length; i++)
             {
-                tw.WriteLine(destinations[i].transform.position.x + "," + destinations[i].transform.position.y);
+                tw.WriteLine(destinations[i].Location.x + "," + destinations[i].Location.y);
 
             }
             tw.Close();
@@ -106,26 +110,26 @@ public class GameController : MonoBehaviour
     }
     public void CalculateDistance()
     {
-        if (destinations.Count > 0)
+        if (destinations.Length > 0)
         {
             
-            TextWriter tw = new StreamWriter(filename, false);
+            TextWriter tw = new StreamWriter(filenameDis, false);
             string header = ",";
-            for (int i = 1; i <= destinations.Count; i++)
+            for (int i = 1; i <= destinations.Length; i++)
             {
                 header += i + ",";
             }
             tw.WriteLine(header);
             tw.Close();
 
-            tw = new StreamWriter(filename, true);
-            for (int i = 0; i < destinations.Count; i++)
+            tw = new StreamWriter(filenameDis, true);
+            for (int i = 0; i < destinations.Length; i++)
             {
                 int currentI = i + 1;
                 string distanceRow = currentI + ",";
-                for (int j = 0; j < destinations.Count; j++)
+                for (int j = 0; j < destinations.Length; j++)
                 {
-                    float dis = Vector3.Distance(destinations[i].transform.position, destinations[j].transform.position);
+                    float dis = Vector3.Distance(destinations[i].Location, destinations[j].Location);
                     distanceRow += dis + ",";
                 }
                 tw.WriteLine(distanceRow);
