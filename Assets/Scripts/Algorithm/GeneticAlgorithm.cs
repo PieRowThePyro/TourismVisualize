@@ -44,7 +44,7 @@ public class GeneticAlgorithm
         
         population = new List<Solution>(next_population);
         population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
-        Debug.Log(population[0].cal_fitness());
+       // Debug.Log(population[0].cal_fitness());
     }
     public Solution GenerateSolution(Data data)
     {

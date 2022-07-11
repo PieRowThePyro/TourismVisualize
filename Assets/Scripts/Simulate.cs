@@ -15,7 +15,8 @@ public class Simulate : MonoBehaviour
         DataReader reader = new DataReader(destinationData,distanceData);
         data.POI = reader.ReadDestination();
         data.D = reader.ReadDistance();
-        ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.2f);
+        ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.3f);
+        //Time.fixedDeltaTime = 1f;
     }
     // Start is called before the first frame update
     void Start()
