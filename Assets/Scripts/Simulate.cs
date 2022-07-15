@@ -17,8 +17,8 @@ public class Simulate : MonoBehaviour
         data.POI = reader.ReadDestination();
         data.D = reader.ReadDistance();
 
-        aco = new AntColonyAgorithm(data, 0.5, 1, 200);
-        ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.1f);
+        aco = new AntColonyAgorithm(data, 0.7, 1, 100);
+        ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.3f);
 
     }
     // Start is called before the first frame update
@@ -30,6 +30,6 @@ public class Simulate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        aco.Evolve();
+aco.Evolve();
     }
 }
