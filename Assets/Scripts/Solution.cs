@@ -85,14 +85,12 @@ public class Solution
     public float cal_fitness()
     {
         float fitness = 0;
-        float dis = cal_distance_obj();
-        Debug.Log(dis);
-        return dis;
+        //Debug.Log(dis);
         fitness += Mathf.Pow((cal_distance_obj() - Data.MIN_DISTANCE) / (Data.MAX_DISTANCE - Data.MIN_DISTANCE), 2) * data.w1;
-       /* fitness += Mathf.Pow((Data.MIN_WATING_TIME - cal_waiting_time_obj()) / (Data.MAX_WATING_TIME - Data.MIN_WATING_TIME), 2) * data.w2;
+        fitness += Mathf.Pow((Data.MIN_WATING_TIME - cal_waiting_time_obj()) / (Data.MAX_WATING_TIME - Data.MIN_WATING_TIME), 2) * data.w2;
         fitness += Mathf.Pow((cal_hapiness_obj() - Data.MAX_HAPPINESS) / (Data.MAX_HAPPINESS - Data.MIN_HAPPINESS), 2) * data.w3;
         fitness += Mathf.Pow((cal_number_of_destination_obj() - Data.MAX_NUMBER_OF_DESTINATION) / (Data.MAX_NUMBER_OF_DESTINATION - Data.MIN_NUMBER_OF_DESTINATION), 2) * data.w4;
-        fitness += Mathf.Pow((cal_cost_obj() - Data.MIN_BUDGET) / (Data.MAX_BUDGET - Data.MIN_BUDGET), 2) * data.w5;*/
+        fitness += Mathf.Pow((cal_cost_obj() - Data.MIN_BUDGET) / (Data.MAX_BUDGET - Data.MIN_BUDGET), 2) * data.w5;
         fitness = Mathf.Sqrt(fitness);
         return fitness;
     }

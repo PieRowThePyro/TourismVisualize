@@ -8,7 +8,7 @@ public class Simulate : MonoBehaviour
     [SerializeField]
      TextAsset distanceData;
     Data data;
-    GeneticAlgorithm ga;
+    GeneticAlgorithm ga; 
     private void Awake()
     {
         data = new Data();
@@ -25,7 +25,7 @@ public class Simulate : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ga.Evolve();
     }

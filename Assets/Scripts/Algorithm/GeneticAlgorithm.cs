@@ -11,6 +11,7 @@ public class GeneticAlgorithm
     float mutationRate;
     Data data;
     List<Solution> population;
+    public static List<Solution> bestSolutions;
     public GeneticAlgorithm(Data data, int populationCount, float selectionRate , float crossoverRate, float mutationRate ) {
         this.data = data;
         this.populationCount = populationCount;
@@ -21,6 +22,7 @@ public class GeneticAlgorithm
         this.selectionRate = selectionRate;
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
+        bestSolutions = new List<Solution>();
     }
 
     public void Evolve() {
@@ -44,7 +46,8 @@ public class GeneticAlgorithm
         
         population = new List<Solution>(next_population);
         population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
-       // Debug.Log(population[0].cal_fitness());
+        Debug.Log(population[0].cal_fitness());
+        bestSolutions.Add(population[0]);
     }
     public Solution GenerateSolution(Data data)
     {
@@ -185,6 +188,7 @@ public class GeneticAlgorithm
     {
         return GenerateSolution(data);
     }
+
 }
 
 public static class Extensions

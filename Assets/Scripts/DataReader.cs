@@ -33,10 +33,6 @@ public class DataReader
             };
         }
         return destinations;
-        
-       
-        
-
     }
     public float[,] ReadDistance() {
         int numberOfLocation = 100;
