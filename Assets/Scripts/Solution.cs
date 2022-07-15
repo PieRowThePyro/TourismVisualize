@@ -85,7 +85,6 @@ public class Solution
     public float cal_fitness()
     {
         float fitness = 0;
-        //Debug.Log(dis);
         fitness += Mathf.Pow((cal_distance_obj() - Data.MIN_DISTANCE) / (Data.MAX_DISTANCE - Data.MIN_DISTANCE), 2) * data.w1;
         fitness += Mathf.Pow((Data.MIN_WATING_TIME - cal_waiting_time_obj()) / (Data.MAX_WATING_TIME - Data.MIN_WATING_TIME), 2) * data.w2;
         fitness += Mathf.Pow((cal_hapiness_obj() - Data.MAX_HAPPINESS) / (Data.MAX_HAPPINESS - Data.MIN_HAPPINESS), 2) * data.w3;
