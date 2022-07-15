@@ -16,8 +16,10 @@ public class Simulate : MonoBehaviour
         DataReader reader = new DataReader(destinationData,distanceData);
         data.POI = reader.ReadDestination();
         data.D = reader.ReadDistance();
+
         aco = new AntColonyAgorithm(data, 0.5, 1, 200);
         ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.1f);
+
     }
     // Start is called before the first frame update
     void Start()

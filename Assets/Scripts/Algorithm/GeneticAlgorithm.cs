@@ -44,7 +44,7 @@ public class GeneticAlgorithm
         
         population = new List<Solution>(next_population);
         population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
-        Debug.Log(population[0].cal_fitness());
+       // Debug.Log(population[0].cal_fitness());
     }
     public Solution GenerateSolution(Data data)
     {
@@ -58,7 +58,7 @@ public class GeneticAlgorithm
             float cost = data.POI[fullTrip[0]].Cost;
             dayTrip.Add(fullTrip[0]);
             int current = fullTrip[0];
-            fullTrip.Remove(0);
+            fullTrip.RemoveAt(0);
 
             while (true)
             {
@@ -74,7 +74,7 @@ public class GeneticAlgorithm
                     cost += data.POI[fullTrip[0]].Cost;
                     current = fullTrip[0];
                     dayTrip.Add(fullTrip[0]);
-                    fullTrip.Remove(0);
+                    fullTrip.RemoveAt(0);
                     continue;
                 }
                 else
@@ -107,7 +107,7 @@ public class GeneticAlgorithm
             {
                 foreach (int poi in s.gene[i])
                 {
-                    fullTrip.Remove(fullTrip.IndexOf(poi));
+                    fullTrip.Remove(poi);
                 }
                 newS.gene.Add(s.gene[i]);
             }
@@ -119,14 +119,14 @@ public class GeneticAlgorithm
         {
             int currentPOI = s.gene[tripNumber][i];
             newTrip.Add(currentPOI);
-            fullTrip.Remove(fullTrip.IndexOf(currentPOI));
+            fullTrip.Remove(currentPOI);
             time = Mathf.Max(time + data.D[currentPOI,s.gene[tripNumber][i + 1]] * 90, data.POI[s.gene[tripNumber][i + 1]].Start) + data.POI[s.gene[tripNumber][i + 1]].Duration;
             cost += data.POI[s.gene[tripNumber][i]].Cost;
         }
 
         int current = s.gene[tripNumber][cutoffPoint];
         newTrip.Add(current);
-        fullTrip.Remove(fullTrip.IndexOf(current));
+        fullTrip.Remove(current);
 
         fullTrip.Shuffle();
         
@@ -139,7 +139,7 @@ public class GeneticAlgorithm
                 cost += data.POI[fullTrip[0]].Cost;
                 current = fullTrip[0];
                 newTrip.Add(fullTrip[0]);
-                fullTrip.Remove(0);
+                fullTrip.RemoveAt(0);
                 continue;
             }
             else
@@ -157,7 +157,7 @@ public class GeneticAlgorithm
             float newCost = data.POI[fullTrip[0]].Cost;
             dayTrip.Add(fullTrip[0]);
             int currentPOI = fullTrip[0];
-            fullTrip.Remove(0);
+            fullTrip.RemoveAt(0);
             while (fullTrip.Count > 0)
             {
                 //float predict = Double.max(newTime + data.D[currentPOI][fullTrip[0]] * 90, data.POI[fullTrip[0]].Start) + data.POI[fullTrip[0]].Duration;
@@ -168,7 +168,7 @@ public class GeneticAlgorithm
                     newCost += data.POI[fullTrip[0]].Cost;
                     currentPOI = fullTrip[0];
                     dayTrip.Add(fullTrip[0]);
-                    fullTrip.Remove(0);
+                    fullTrip.RemoveAt(0);
                     continue;
                 }
                 else
