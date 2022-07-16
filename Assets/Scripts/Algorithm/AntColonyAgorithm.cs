@@ -12,6 +12,7 @@ public class AntColonyAgorithm
     int numberOfAnts;    
     double alpha;
     List<Solution> results;
+    public static List<Solution> bestSolutions=new List<Solution>();
 
     public AntColonyAgorithm(Data data, double alpha, double beta, int numberOfAnts)
     {
@@ -146,21 +147,21 @@ public class AntColonyAgorithm
                 TemporaryMatrix[i,j] = 0;
             }
         }
-        if (results.Count == 0)
+        if (bestSolutions.Count == 0)
         {
-            results.Add(ants[0]);
+            bestSolutions.Add(ants[0]);
         }
         else {
-            if (results[results.Count - 1].cal_fitness() < ants[0].cal_fitness())
+            if (bestSolutions[bestSolutions.Count - 1].cal_fitness() < ants[0].cal_fitness())
             {
-                results.Add(results[results.Count - 1]);
+                bestSolutions.Add(bestSolutions[bestSolutions.Count - 1]);
             }
             else {
-                results.Add(ants[0]);
+                bestSolutions.Add(ants[0]);
             }
         }
 
-        Debug.Log(results[results.Count - 1].cal_fitness());
+        Debug.Log(bestSolutions[bestSolutions.Count - 1].cal_fitness());
 
     }
 }
