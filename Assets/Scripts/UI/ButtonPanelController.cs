@@ -99,5 +99,8 @@ public class ButtonPanelController : MonoBehaviour
 
     }
 
+    public void ChangeAlgorithm(){
+        GameObject.Find("MutationRateTxt").SetActive(false);
+    }
 
 }
