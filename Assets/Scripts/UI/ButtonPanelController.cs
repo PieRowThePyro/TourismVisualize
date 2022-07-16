@@ -17,9 +17,12 @@ public class ButtonPanelController : MonoBehaviour
     GameObject panel;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
+    bool isGenetic = true;
     // Start is called before the first frame update
     void Start()
     {
+        UpdateForGenetic();
+        UpdateForACO();
         pool = new ObjectPool<Destination>(
             () =>
             {
@@ -68,18 +71,18 @@ public class ButtonPanelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void GeneratePoints()
     {
-        
-        foreach(Destination dest in Destinations)
+
+        foreach (Destination dest in Destinations)
         {
             pool.Release(dest);
         }
         Destinations.Clear();
-        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
         GameController.ProblemSize = int.Parse(text.text);
 
         List<int> list = Enumerable.Range(0, 100).ToList();
@@ -99,5 +102,51 @@ public class ButtonPanelController : MonoBehaviour
 
     }
 
+    public void ChangeStatus()
+    {
+        isGenetic = !isGenetic;
+        UpdateForACO();
+        UpdateForGenetic();
+
+    }
+    public void UpdateForGenetic()
+    {
+
+        panel.gameObject.transform.Find("MutationRateTxt").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("MutationRateNumber").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("MutationRateSlider").gameObject.SetActive(isGenetic);
+
+        panel.gameObject.transform.Find("ElitismTxt").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("ElitismNumber").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("ElitismSlider").gameObject.SetActive(isGenetic);
+
+        panel.gameObject.transform.Find("CrossoverRateTxt").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("CrossoverRateSlider").gameObject.SetActive(isGenetic);
+
+        panel.gameObject.transform.Find("PoolSizeTxt").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("PoolSizeNumber").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("PoolSizeSlider").gameObject.SetActive(isGenetic);
+
+        panel.gameObject.transform.Find("ProblemSizeTxt").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.SetActive(isGenetic);
+        panel.gameObject.transform.Find("ProblemSizeSlider").gameObject.SetActive(isGenetic);
+
+    }
+    public void UpdateForACO()
+    {
+        ///Set sliders for aco
+        panel.gameObject.transform.Find("AlphaTxt").gameObject.gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("AlphaNumber").gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("AlphaSlider").gameObject.SetActive(!isGenetic);
+
+        panel.gameObject.transform.Find("BetaTxt").gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("BetaNumber").gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("BetaSlider").gameObject.SetActive(!isGenetic);
+
+        panel.gameObject.transform.Find("NumberOfAntsTxt").gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("NumberOfAntsNumber").gameObject.SetActive(!isGenetic);
+        panel.gameObject.transform.Find("NumberOfAntsSlider").gameObject.SetActive(!isGenetic);
+    }
 
 }
