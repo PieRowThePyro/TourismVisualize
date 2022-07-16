@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -11,7 +13,8 @@ public class GameController : MonoBehaviour
     TextAsset distanceData;
     [SerializeField]
     GameObject destinationPrefab;
-
+    [SerializeField]
+    GameObject panel;
     List<int> desSet1 = new List<int>() { 1, 5, 6, 3, 8, 9, 12, 41, 56, 98};
     List<int> desSet2 = new List<int>() { 9, 12, 49, 2, 78, 6, 4};
 
@@ -22,40 +25,50 @@ public class GameController : MonoBehaviour
     Destination[] destinations;
     List<GameObject> currentLines = new List<GameObject>();
     List<GameObject> linesToBeActive = new List<GameObject>();
-    string filename;
-    string filenameDis;
-    [SerializeField]
-    TextAsset desFile;
-    [SerializeField]
-    TextAsset disFile;
-    int PoolSize;
-    double ElitismRate;
-    double MutationRate;
-    double CrossoverRate;
-    double Beta;
-    double Alpha;
-    int NumberOfAnts;
-    int ProblemSize;
-    int TripNum;
-
-
+   
+    public static int PoolSize;
+    public static double ElitismRate;
+    public static double MutationRate;
+    public static double CrossoverRate;
+    public static double Beta;
+    public static double Alpha;
+    public static int NumberOfAnts;
+    public static int ProblemSize;
+    public static Data FullData;
+    public static Data RealData;
+    
     private void Awake()
     {
-        Data data = new Data();
+        FullData = new Data();
         DataReader reader = new DataReader(destinationData,distanceData);
-        data.POI = reader.ReadDestination();
-        data.D = reader.ReadDistance();
-        
-        
+        FullData.POI = reader.ReadDestination();
+        FullData.D = reader.ReadDistance();
+
     }
 
     // Start is called before the first frame update
     public void StartBtn()
     {
-
     }
 
+    public void GeneratePoints()
+    {
+        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").GetComponent<TextMeshProUGUI>();
+        ProblemSize = int.Parse(text.text);
 
+        List<int> list = Enumerable.Range(0, 100).ToList();
+        Extensions.Shuffle(list);
+
+        List<int> idList = list.GetRange(0, ProblemSize);
+        RealData = new Data(FullData, idList);
+        
+        for (int i = 0; i < ProblemSize; i++)
+        {
+            Instantiate(destinationPrefab, RealData.POI[i].Location, Quaternion.identity);
+        }
+
+
+    }
 
     // Update is called once per frame
     void Update()
