@@ -49,7 +49,7 @@ public class Data
     public Data()
     {
         this.P = 100;
-        this.K = 5;
+        this.K = 2;
         this.S = 15000;
         this.C = 10;
         this.C_max[0] = 5000000f;

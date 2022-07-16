@@ -25,6 +25,7 @@ public class SliderController : MonoBehaviour
         Slider slider = panel.gameObject.transform.Find("MutationRateSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("MutationRateNumber").GetComponent<TextMeshProUGUI>();
         text.SetText(slider.value.ToString("0.00"));
+        
     }
     public void ElitismRateSilder()
     {
