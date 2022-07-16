@@ -44,6 +44,7 @@ public class Data
                 this.D[i, j] = data.D[destinations[i], destinations[j]];
             }
         }
+        K = 2;
         P = destinations.Count;
         this.C_max[0] = 5000000f;
         this.C_max[1] = 5000000f;

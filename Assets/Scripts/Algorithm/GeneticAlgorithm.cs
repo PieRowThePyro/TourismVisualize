@@ -14,6 +14,7 @@ public class GeneticAlgorithm : IStrategy
     public static List<Solution> bestSolutions;
     public GeneticAlgorithm(Data data, int populationCount, float selectionRate , float crossoverRate, float mutationRate ) {
         this.data = data;
+        
         this.populationCount = populationCount;
         population = new List<Solution>();
         for (int i = 0; i <populationCount; i++) {
@@ -23,6 +24,7 @@ public class GeneticAlgorithm : IStrategy
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
         bestSolutions = new List<Solution>();
+        
     }
 
     public Solution Evolve() {
@@ -87,6 +89,7 @@ public class GeneticAlgorithm : IStrategy
             }
             s.gene.Add(dayTrip);
         }
+        
         return s;
 
     }
@@ -100,8 +103,7 @@ public class GeneticAlgorithm : IStrategy
         }
 
         // random trip number and cutoff point
-        int tripNumber = Random.Range(0, data.K);
-        Debug.Log(tripNumber);
+        int tripNumber = Random.Range(0, data.K);        
         int cutoffPoint = Random.Range(0, s.gene[tripNumber].Count);
         Solution newS = new Solution(data);
         for (int i = 0; i < tripNumber; i++)

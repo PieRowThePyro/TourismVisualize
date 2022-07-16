@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     public void StartBtn()
     {
+        
         PoolSize = int.Parse( panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
         ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
         MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
@@ -59,7 +60,12 @@ public class GameController : MonoBehaviour
         manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
 
         isStarted = !isStarted;
-        
+        Time.timeScale = 1f;
+
+
+    }
+    public void StopBtn() {
+        Time.timeScale = 0;
     }
 
     private void FixedUpdate()
