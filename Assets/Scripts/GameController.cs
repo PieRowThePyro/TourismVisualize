@@ -45,14 +45,21 @@ public class GameController : MonoBehaviour
         FullData.POI = reader.ReadDestination();
         FullData.D = reader.ReadDistance();
         manager = new StrategyManager();
-        manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
 
     }
 
     // Start is called before the first frame update
     public void StartBtn()
     {
+        PoolSize = int.Parse( panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+        ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+        MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+        CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+        
+        manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
+
         isStarted = !isStarted;
+        
     }
 
     private void FixedUpdate()
@@ -67,11 +74,21 @@ public class GameController : MonoBehaviour
     public void ChangeAlgorithm()
     {
         IsGenetic = !IsGenetic;
+        
         if (IsGenetic)
         {
+            PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+
             manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
         } else
         {
+            Beta = float.Parse(panel.gameObject.transform.Find("BetaNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            Alpha = float.Parse(panel.gameObject.transform.Find("AlphaNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            NumberOfAnts = int.Parse(panel.gameObject.transform.Find("NumberOfAntsNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+
             manager.SetStrategy(new AntColonyAgorithm(RealData, Alpha, Beta, NumberOfAnts));
         }
     }

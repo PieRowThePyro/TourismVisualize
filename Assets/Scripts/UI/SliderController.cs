@@ -43,7 +43,7 @@ public class SliderController : MonoBehaviour
     {
         Slider slider = panel.gameObject.transform.Find("PoolSizeSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("PoolSizeNumber").GetComponent<TextMeshProUGUI>();
-        text.text = slider.value.ToString("0.00");
+        text.text = slider.value.ToString();
     }
     public void ProblemSizeSilder()
     {
