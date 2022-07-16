@@ -17,7 +17,7 @@ public class ButtonPanelController : MonoBehaviour
     GameObject panel;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
-    bool isGenetic = true;
+    bool isGenetic = GameController.IsGenetic;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,24 +32,24 @@ public class ButtonPanelController : MonoBehaviour
                  */
                 return Instantiate(destinationPrefab);
             },
-            bullet =>
+            dest =>
             {
                 /*onGet function: 
                  * when we ask for 1 object, and there is 1 available in Pool
                  * -> returns an object
                  */
                 //active it
-                bullet.gameObject.SetActive(true);
+                dest.gameObject.SetActive(true);
             },
-            bullet =>
+            dest =>
             {
                 /*onRelease function:
                  * when we're done with the object -> give it back to the Pool
                  */
                 //deactive it
-                bullet.gameObject.SetActive(false);
+                dest.gameObject.SetActive(false);
             },
-            bullet =>
+            dest =>
             {
                 /*destroy action:
                  * this pool will always spawn objects when we ask for them, even
@@ -57,7 +57,7 @@ public class ButtonPanelController : MonoBehaviour
                  * return to the pool, if the pool is already filled
                  * => it will destroy the object instead
                  */
-                Destroy(bullet.gameObject);
+                Destroy(dest.gameObject);
             },
             //not important 
             false,
@@ -107,6 +107,7 @@ public class ButtonPanelController : MonoBehaviour
         isGenetic = !isGenetic;
         UpdateForACO();
         UpdateForGenetic();
+        GameController.IsGenetic = isGenetic;
 
     }
     public void UpdateForGenetic()
@@ -128,9 +129,7 @@ public class ButtonPanelController : MonoBehaviour
         panel.gameObject.transform.Find("PoolSizeNumber").gameObject.SetActive(isGenetic);
         panel.gameObject.transform.Find("PoolSizeSlider").gameObject.SetActive(isGenetic);
 
-        panel.gameObject.transform.Find("ProblemSizeTxt").gameObject.SetActive(isGenetic);
-        panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.SetActive(isGenetic);
-        panel.gameObject.transform.Find("ProblemSizeSlider").gameObject.SetActive(isGenetic);
+        
 
     }
     public void UpdateForACO()

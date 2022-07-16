@@ -15,9 +15,7 @@ public class GameController : MonoBehaviour
     GameObject destinationPrefab;
     [SerializeField]
     GameObject panel;
-    List<int> desSet1 = new List<int>() { 1, 5, 6, 3, 8, 9, 12, 41, 56, 98};
-    List<int> desSet2 = new List<int>() { 9, 12, 49, 2, 78, 6, 4};
-
+   
     [SerializeField]
     int desCount;
     float timer = 0;
@@ -34,6 +32,7 @@ public class GameController : MonoBehaviour
     public static double Alpha;
     public static int NumberOfAnts;
     public static int ProblemSize;
+    public static bool IsGenetic = true;
     public static Data FullData;
     public static Data RealData;
     
@@ -49,25 +48,12 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     public void StartBtn()
     {
+
     }
 
-    public void GeneratePoints()
+    private void FixedUpdate()
     {
-        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").GetComponent<TextMeshProUGUI>();
-        ProblemSize = int.Parse(text.text);
-
-        List<int> list = Enumerable.Range(0, 100).ToList();
-        Extensions.Shuffle(list);
-
-        List<int> idList = list.GetRange(0, ProblemSize);
-        RealData = new Data(FullData, idList);
         
-        for (int i = 0; i < ProblemSize; i++)
-        {
-            Instantiate(destinationPrefab, RealData.POI[i].Location, Quaternion.identity);
-        }
-
-
     }
 
     // Update is called once per frame
@@ -110,59 +96,6 @@ public class GameController : MonoBehaviour
         }
         findingPath = true;
     }
-    public void ButtonPressed()
-    {
-        foreach (var line in currentLines)
-            GameObject.Destroy(line);
-        currentLines.Clear();
-
-        GetLines(desSet2);
-    }
-    /*public void WriteToCSV()
-    {
-        if (destinations.Length > 0)
-        {
-            TextWriter tw = new StreamWriter(filename, false);
-            tw.WriteLine("X, Y");
-            tw.Close();
-
-            tw = new StreamWriter(filename, true);
-            for (int i = 0; i < destinations.Length; i++)
-            {
-                tw.WriteLine(destinations[i].Location.x + "," + destinations[i].Location.y);
-
-            }
-            tw.Close();
-        }
-    }
-    public void CalculateDistance()
-    {
-        if (destinations.Length > 0)
-        {
-            
-            TextWriter tw = new StreamWriter(filenameDis, false);
-            string header = ",";
-            for (int i = 1; i <= destinations.Length; i++)
-            {
-                header += i + ",";
-            }
-            tw.WriteLine(header);
-            tw.Close();
-
-            tw = new StreamWriter(filenameDis, true);
-            for (int i = 0; i < destinations.Length; i++)
-            {
-                int currentI = i + 1;
-                string distanceRow = currentI + ",";
-                for (int j = 0; j < destinations.Length; j++)
-                {
-                    float dis = Vector3.Distance(destinations[i].Location, destinations[j].Location);
-                    distanceRow += dis + ",";
-                }
-                tw.WriteLine(distanceRow);
-            }
-            tw.Close();
-        }
-    }*/
+    
 
 }

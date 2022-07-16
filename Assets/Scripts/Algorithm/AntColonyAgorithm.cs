@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntColonyAgorithm
+public class AntColonyAgorithm : IStrategy
 {
     Data data;
     double[,] CostMatrix;
