@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
     double Alpha;
     int NumberOfAnts;
     int ProblemSize;
+    int TripNum;
 
 
     private void Awake()
@@ -44,12 +45,14 @@ public class GameController : MonoBehaviour
         DataReader reader = new DataReader(destinationData,distanceData);
         data.POI = reader.ReadDestination();
         data.D = reader.ReadDistance();
-
+        
+        
     }
 
     // Start is called before the first frame update
     public void StartBtn()
     {
+
     }
 
 

@@ -9,8 +9,7 @@ public class AntColonyAgorithm
     double[,] PheromoneMatrix;
     double[,] TemporaryMatrix;
     double beta;
-    int numberOfAnts;
-    
+    int numberOfAnts;    
     double alpha;
     List<Solution> results;
 

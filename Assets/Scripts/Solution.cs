@@ -86,11 +86,25 @@ public class Solution
     {
         float fitness = 0;
         fitness += Mathf.Pow((cal_distance_obj() - Data.MIN_DISTANCE) / (Data.MAX_DISTANCE - Data.MIN_DISTANCE), 2) * data.w1;
-        fitness += Mathf.Pow((Data.MIN_WATING_TIME - cal_waiting_time_obj()) / (Data.MAX_WATING_TIME - Data.MIN_WATING_TIME), 2) * data.w2;
+       /* fitness += Mathf.Pow((Data.MIN_WATING_TIME - cal_waiting_time_obj()) / (Data.MAX_WATING_TIME - Data.MIN_WATING_TIME), 2) * data.w2;
         fitness += Mathf.Pow((cal_hapiness_obj() - Data.MAX_HAPPINESS) / (Data.MAX_HAPPINESS - Data.MIN_HAPPINESS), 2) * data.w3;
         fitness += Mathf.Pow((cal_number_of_destination_obj() - Data.MAX_NUMBER_OF_DESTINATION) / (Data.MAX_NUMBER_OF_DESTINATION - Data.MIN_NUMBER_OF_DESTINATION), 2) * data.w4;
-        fitness += Mathf.Pow((cal_cost_obj() - Data.MIN_BUDGET) / (Data.MAX_BUDGET - Data.MIN_BUDGET), 2) * data.w5;
+        fitness += Mathf.Pow((cal_cost_obj() - Data.MIN_BUDGET) / (Data.MAX_BUDGET - Data.MIN_BUDGET), 2) * data.w5;*/
         fitness = Mathf.Sqrt(fitness);
         return fitness;
+    }
+
+    public bool Equals(object obj,Data data)
+    {
+        if (obj is Solution) {
+            var s = obj as Solution;
+            for (int i = 0; i < data.K; i++) {
+                if (CompareList.SetwiseEquivalentTo<int>(s.gene[i], this.gene[i]) == false) {
+                    return false;
+                } ;
+            }
+            return true;
+        }
+        return false;
     }
 }
