@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destination 
+public class Destination : MonoBehaviour
 {
     public int Id { get; set; }
     public Vector2 Location { get; set; }

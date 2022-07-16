@@ -44,6 +44,7 @@ public class Data
                 this.D[i, j] = data.D[destinations[i], destinations[j]];
             }
         }
+        P = destinations.Count;
     }
     public Data()
     {
