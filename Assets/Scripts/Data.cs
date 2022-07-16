@@ -45,6 +45,31 @@ public class Data
             }
         }
         P = destinations.Count;
+        this.C_max[0] = 5000000f;
+        this.C_max[1] = 5000000f;
+        this.C_max[2] = 5000000f;
+        this.C_max[3] = 5000000f;
+        this.C_max[4] = 5000000f;
+        this.T_max[0] = 73800f;
+        this.T_max[1] = 73800f;
+        this.T_max[2] = 73800f;
+        this.T_max[3] = 73800f;
+        this.T_max[4] = 73800f;
+        this.t_s[0] = 27000;
+        this.t_s[1] = 27000;
+        this.t_s[2] = 27000;
+        this.t_s[3] = 27000;
+        this.t_s[4] = 27000;
+        this.t_e[0] = 75600;
+        this.t_e[1] = 75600;
+        this.t_e[2] = 75600;
+        this.t_e[3] = 75600;
+        this.t_e[4] = 75600;
+        this.w1 = 1;
+        this.w2 = 1;
+        this.w3 = 1;
+        this.w4 = 1;
+        this.w5 = 1;
     }
     public Data()
     {
