@@ -73,7 +73,6 @@ public class GameController : MonoBehaviour
 
     public void ChangeAlgorithm()
     {
-        IsGenetic = !IsGenetic;
         
         if (IsGenetic)
         {
@@ -91,6 +90,8 @@ public class GameController : MonoBehaviour
 
             manager.SetStrategy(new AntColonyAgorithm(RealData, Alpha, Beta, NumberOfAnts));
         }
+        IsGenetic = !IsGenetic;
+
     }
 
     // Update is called once per frame
