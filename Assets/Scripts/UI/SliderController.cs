@@ -15,6 +15,7 @@ public class SliderController : MonoBehaviour
         CrossoverRateSilder();
         PoolSizeSilder();
         ProblemSizeSilder();
+        TripNumberSlider();
     }
     public void MutationRateSilder()
     {
@@ -45,5 +46,11 @@ public class SliderController : MonoBehaviour
         Slider slider = panel.gameObject.transform.Find("ProblemSizeSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").GetComponent<TextMeshProUGUI>();
         text.text = slider.value.ToString();
+    }
+    public void TripNumberSlider()
+    {
+        Slider slider = panel.gameObject.transform.Find("TripNumberSlider").GetComponent<Slider>();
+        TextMeshProUGUI text = panel.gameObject.transform.Find("TripNumberNumber").GetComponent<TextMeshProUGUI>();
+        text.SetText(slider.value.ToString());
     }
 }
