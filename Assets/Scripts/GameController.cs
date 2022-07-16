@@ -23,37 +23,57 @@ public class GameController : MonoBehaviour
     Destination[] destinations;
     List<GameObject> currentLines = new List<GameObject>();
     List<GameObject> linesToBeActive = new List<GameObject>();
-   
+    StrategyManager manager;
+
     public static int PoolSize;
-    public static double ElitismRate;
-    public static double MutationRate;
-    public static double CrossoverRate;
-    public static double Beta;
-    public static double Alpha;
+    public static float ElitismRate;
+    public static float MutationRate;
+    public static float CrossoverRate;
+    public static float Beta;
+    public static float Alpha;
     public static int NumberOfAnts;
     public static int ProblemSize;
     public static bool IsGenetic = true;
     public static Data FullData;
     public static Data RealData;
-    
+
+    bool isStarted = false;
     private void Awake()
     {
         FullData = new Data();
         DataReader reader = new DataReader(destinationData,distanceData);
         FullData.POI = reader.ReadDestination();
         FullData.D = reader.ReadDistance();
+        manager = new StrategyManager();
+        manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
 
     }
 
     // Start is called before the first frame update
     public void StartBtn()
     {
-
+        isStarted = !isStarted;
     }
 
     private void FixedUpdate()
     {
-        
+        if (isStarted)
+        {
+            manager.DoAlgorithm();
+
+        }
+    }
+
+    public void ChangeAlgorithm()
+    {
+        IsGenetic = !IsGenetic;
+        if (IsGenetic)
+        {
+            manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
+        } else
+        {
+            manager.SetStrategy(new AntColonyAgorithm(RealData, Alpha, Beta, NumberOfAnts));
+        }
     }
 
     // Update is called once per frame

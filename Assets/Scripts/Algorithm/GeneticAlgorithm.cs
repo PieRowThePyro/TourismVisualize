@@ -25,7 +25,7 @@ public class GeneticAlgorithm : IStrategy
         bestSolutions = new List<Solution>();
     }
 
-    public void Evolve() {
+    public Solution Evolve() {
         List<Solution> next_population = new List<Solution>();
         int selectionSize =Mathf.FloorToInt(selectionRate * populationCount);
         
@@ -46,8 +46,8 @@ public class GeneticAlgorithm : IStrategy
         
         population = new List<Solution>(next_population);
         population.Sort((x, y) => x.cal_fitness().CompareTo(y.cal_fitness()));
-        Debug.Log(population[0].cal_fitness());
-        bestSolutions.Add(population[0]);
+        //Debug.Log(population[0].cal_fitness());
+        return population[0];
     }
     public Solution GenerateSolution(Data data)
     {

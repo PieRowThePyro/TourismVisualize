@@ -56,7 +56,7 @@ public class AntColonyAgorithm : IStrategy
 
     }
 
-    public void Evolve()
+    public Solution Evolve()
     {
         List<Solution> ants = new List<Solution>();
         for (int i = 0; i < numberOfAnts; i++)
@@ -149,19 +149,18 @@ public class AntColonyAgorithm : IStrategy
         }
         if (bestSolutions.Count == 0)
         {
-            bestSolutions.Add(ants[0]);
+            return ants[0];
         }
         else {
             if (bestSolutions[bestSolutions.Count - 1].cal_fitness() < ants[0].cal_fitness())
             {
-                bestSolutions.Add(bestSolutions[bestSolutions.Count - 1]);
+                return (bestSolutions[bestSolutions.Count - 1]);
             }
             else {
-                bestSolutions.Add(ants[0]);
+                return (ants[0]);
             }
         }
 
-        Debug.Log(bestSolutions[bestSolutions.Count - 1].cal_fitness());
 
     }
 }
