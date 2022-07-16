@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
             LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
             lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
             lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.blue;
+            lineRenderer.endColor = Color.red;
             lineRenderer.startWidth = 0.05f;
             lineRenderer.endWidth = 0.05f;
             lineRenderer.positionCount = 2;
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
 
         GetLines(desSet2);
     }
-    public void WriteToCSV()
+    /*public void WriteToCSV()
     {
         if (destinations.Length > 0)
         {
@@ -147,6 +147,6 @@ public class GameController : MonoBehaviour
             }
             tw.Close();
         }
-    }
+    }*/
 
 }
