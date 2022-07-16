@@ -18,7 +18,7 @@ public class Simulate : MonoBehaviour
     List<GameObject> linesToBeActive = new List<GameObject>();
     List<Color> colors = new List<Color>() {Color.red,Color.green,Color.yellow,Color.white,Color.black };
     float timer = 0;
-    bool findingPath = false;
+    bool drawingPath = false;
     private void Awake()
     {
         data = new Data();
@@ -38,6 +38,21 @@ public class Simulate : MonoBehaviour
     void Start()
     {
         Time.fixedDeltaTime = 1f;
+    }
+    void Update()
+    {
+        if (drawingPath)
+        {
+            if (timer > 0.05f)
+            {
+                linesToBeActive[0].SetActive(true);
+                linesToBeActive.RemoveAt(0);
+                timer = 0f;
+            }
+            timer += Time.deltaTime;
+            if (linesToBeActive.Count == 0)
+                drawingPath = false;
+        }
     }
 
     // Update is called once per frame
@@ -82,7 +97,7 @@ public class Simulate : MonoBehaviour
                 lineRenderer.SetPosition(1, desNext); //x,y and z position of the end point of the line
                 currentLines.Add(line);
                 linesToBeActive.Add(line);
-                line.SetActive(true);
+                line.SetActive(false);
             }
             if (color < data.K - 1) {
                 Vector3 des = data.POI[desSet[desSet.Count-1]].Location;
@@ -99,12 +114,12 @@ public class Simulate : MonoBehaviour
                 lineRenderer.SetPosition(1, desNext); //x,y and z position of the end point of the line
                 currentLines.Add(line);
                 linesToBeActive.Add(line);
-                line.SetActive(true);
+                line.SetActive(false);
             }
             color++;
            
         }
-        findingPath = true;
+        drawingPath = true;
     }
     
 }
