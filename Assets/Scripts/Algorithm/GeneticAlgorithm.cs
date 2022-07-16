@@ -26,7 +26,6 @@ public class GeneticAlgorithm : IStrategy
     }
 
     public Solution Evolve() {
-        
         List<Solution> next_population = new List<Solution>();
         int selectionSize =Mathf.FloorToInt(selectionRate * populationCount);
         
@@ -102,9 +101,8 @@ public class GeneticAlgorithm : IStrategy
 
         // random trip number and cutoff point
         int tripNumber = Random.Range(0, data.K);
-        Debug.Log(s.gene.Count);
+        Debug.Log(tripNumber);
         int cutoffPoint = Random.Range(0, s.gene[tripNumber].Count);
-        //  System.out.println(tripNumber + "|" + cutoffPoint);
         Solution newS = new Solution(data);
         for (int i = 0; i < tripNumber; i++)
         {

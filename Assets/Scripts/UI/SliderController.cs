@@ -60,16 +60,16 @@ public class SliderController : MonoBehaviour
     public void AlphaSlider(){
         Slider slider = panel.gameObject.transform.Find("AlphaSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("AlphaNumber").GetComponent<TextMeshProUGUI>();
-        text.SetText(slider.value.ToString());
+        text.SetText(slider.value.ToString("0.00"));
     }
     public void BetaSlider(){
         Slider slider = panel.gameObject.transform.Find("BetaSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("BetaNumber").GetComponent<TextMeshProUGUI>();
-        text.SetText(slider.value.ToString());
+        text.SetText(slider.value.ToString("0.00"));
     }
     public void NumberOfAntsSlider(){
         Slider slider = panel.gameObject.transform.Find("NumberOfAntsSlider").GetComponent<Slider>();
         TextMeshProUGUI text = panel.gameObject.transform.Find("NumberOfAntsNumber").GetComponent<TextMeshProUGUI>();
-        text.SetText(slider.value.ToString());
+        text.text = (slider.value.ToString());
     }
 }
