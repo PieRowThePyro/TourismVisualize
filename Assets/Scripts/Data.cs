@@ -36,6 +36,15 @@ public class Data
     public float w4;
     public float w5;
 
+    public Data(Data data, List<int> destinations) {
+        //Viet kieu deo gi day?
+        for (int i = 0; i < destinations.Count; i++) {
+            this.POI[i] = data.POI[destinations[i]];
+            for (int j = 0; j < destinations.Count; j++) {
+                this.D[i, j] = data.D[destinations[i], destinations[j]];
+            }
+        }
+    }
     public Data()
     {
         this.P = 100;

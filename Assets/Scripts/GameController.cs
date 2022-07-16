@@ -6,6 +6,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
+    TextAsset destinationData;
+    [SerializeField]
+    TextAsset distanceData;
+    [SerializeField]
     GameObject destinationPrefab;
 
     List<int> desSet1 = new List<int>() { 1, 5, 6, 3, 8, 9, 12, 41, 56, 98};
@@ -24,21 +28,28 @@ public class GameController : MonoBehaviour
     TextAsset desFile;
     [SerializeField]
     TextAsset disFile;
+    int PoolSize;
+    double ElitismRate;
+    double MutationRate;
+    double CrossoverRate;
+    double Beta;
+    double Alpha;
+    int NumberOfAnts;
+    int ProblemSize;
+
+
+    private void Awake()
+    {
+        Data data = new Data();
+        DataReader reader = new DataReader(destinationData,distanceData);
+        data.POI = reader.ReadDestination();
+        data.D = reader.ReadDistance();
+
+    }
 
     // Start is called before the first frame update
     public void StartBtn()
     {
-        filename = Application.dataPath + "/DestinationCSV.csv";
-        filenameDis = Application.dataPath + "/DistanceCSV.csv";
-        DataReader reader = new DataReader(desFile, disFile);
-        destinations = reader.ReadDestination();
-        foreach (var des in destinations)
-        {
-            GameObject desTemp = Instantiate(destinationPrefab, des.Location, Quaternion.identity);
-        }
-        //WriteToCSV();
-        //CalculateDistance();
-        GetLines(desSet1);
     }
 
 
