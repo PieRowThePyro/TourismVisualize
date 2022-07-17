@@ -39428,7 +39428,7 @@ MonoBehaviour:
   destinationPrefab: {fileID: 7064682282943869877, guid: 6c66800f383c06646bb984461a244c62, type: 3}
   arrowPrefab: {fileID: 1643104389839909463, guid: bd2c26455a6fa59478c0290634f156fe, type: 3}
   panel: {fileID: 1742999484}
-  mainCam: {fileID: 0}
+  mainCam: {fileID: 519420031}
   DashedLine: {fileID: 2100000, guid: 2fb26cf900ea7494f93ad51734a84ccb, type: 2}
   desCount: 100
   currentLines: []

@@ -23,6 +23,7 @@ public class ButtonPanelController : MonoBehaviour
     GameObject resetBtn;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
+    private List<Destination> Destinations2 = new List<Destination>();
     bool isGenetic = GameController.IsGenetic;
     // Start is called before the first frame update
     void Start()
@@ -104,9 +105,13 @@ public class ButtonPanelController : MonoBehaviour
             {
                 Destination dest = pool.Get();
                 Destinations.Add(dest);
+                GameObject titleText = dest.gameObject.transform.Find("Canvas").gameObject.transform.Find("DesName").gameObject;
+                titleText.GetComponent<TextMeshProUGUI>().text = GameController.FullData.POI[idList[i]].Title;
+                titleText.SetActive(false);
                 dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
                 //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
             }
+
             GC.isGenerated = true;
         }
     }
