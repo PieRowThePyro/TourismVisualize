@@ -19,6 +19,8 @@ public class ButtonPanelController : MonoBehaviour
     GameObject panel;
     [SerializeField]
     GameController GC;
+    [SerializeField]
+    GameObject resetBtn;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
     bool isGenetic = GameController.IsGenetic;
@@ -154,26 +156,35 @@ public class ButtonPanelController : MonoBehaviour
     }
     public void StartBtn()
     {
-        if (!GC.isStarted)
-            if (GC.isGenerated)
-            {
-                GameController.PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-                GameController.ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-                GameController.MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-                GameController.CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-
-                GameController.manager.SetStrategy(new GeneticAlgorithm(GameController.RealData, GameController.PoolSize,
-                    GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
-
-                GC.isStarted = !GC.isStarted;
-                Time.timeScale = 1f;
-                panel.gameObject.transform.Find("StartBtn").gameObject.transform.Find("StartBtnTxt").GetComponent<TextMeshProUGUI>().text = "Reset";
-            }
-        if (GC.isStarted)
+        if (GC.isGenerated)
         {
+            GameController.PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
 
+            GameController.manager.SetStrategy(new GeneticAlgorithm(GameController.RealData, GameController.PoolSize,
+                GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
+
+            GC.isStarted = !GC.isStarted;
+            Time.timeScale = 1f;
+            panel.gameObject.transform.Find("StartBtn").gameObject.SetActive(false);
+            resetBtn.SetActive(true);
         }
-
+    }
+    public void ResetBtn()
+    {
+        panel.gameObject.transform.Find("StartBtn").gameObject.SetActive(true);
+        resetBtn.SetActive(false);
+        GC.drawingPath = false;
+        GC.isStarted = false;
+        foreach (var item in GC.currentLines)
+        {
+            Destroy(item);
+        }
+        GC.currentLines.Clear();
+        GC.linesToBeActive.Clear();
+        GC.Awake();
     }
     public void StopBtn()
     {

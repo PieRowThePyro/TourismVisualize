@@ -25,8 +25,8 @@ public class GameController : MonoBehaviour
     int desCount;
     float timer = 0;
     Destination[] destinations;
-    List<GameObject> currentLines = new List<GameObject>();
-    List<GameObject> linesToBeActive = new List<GameObject>();
+    public List<GameObject> currentLines = new List<GameObject>();
+    public List<GameObject> linesToBeActive = new List<GameObject>();
     public static StrategyManager manager;
     List<Color> colors = new List<Color>() { Color.red, Color.green, Color.yellow, Color.white, Color.black };
 
@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
     public bool drawingPath = false;
     public bool isStarted = false;
     public bool isGenerated = false;
-    private void Awake()
+    public void Awake()
     {
         FullData = new Data();
         DataReader reader = new DataReader(destinationData, distanceData);
