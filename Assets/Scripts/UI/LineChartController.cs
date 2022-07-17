@@ -30,7 +30,7 @@ public class LineChartController : MonoBehaviour
     void Start()
     {
 
-        GameObject dd = GameObject.Find("DataDiagram (1)");
+        GameObject dd = GameObject.Find("DataDiagram");
         if (null == dd)
         {
             Debug.LogWarning("can not find a gameobject of DataDiagram");
