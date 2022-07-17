@@ -34621,8 +34621,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1567557608}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1567557611}
+        m_TargetAssemblyTypeName: ButtonPanelController, Assembly-CSharp
         m_MethodName: StopBtn
         m_Mode: 1
         m_Arguments:
@@ -39596,7 +39596,11 @@ MonoBehaviour:
   distanceData: {fileID: 4900000, guid: a3734253a3c27c644ab66a4fde4c1860, type: 3}
   destinationPrefab: {fileID: 7064682282943869877, guid: 6c66800f383c06646bb984461a244c62, type: 3}
   panel: {fileID: 1742999484}
+  DashedLine: {fileID: 2100000, guid: 2fb26cf900ea7494f93ad51734a84ccb, type: 2}
   desCount: 100
+  drawingPath: 0
+  isStarted: 0
+  isGenerated: 0
 --- !u!4 &1567557609
 Transform:
   m_ObjectHideFlags: 0
@@ -39641,6 +39645,7 @@ MonoBehaviour:
   distanceData: {fileID: 4900000, guid: a3734253a3c27c644ab66a4fde4c1860, type: 3}
   destinationPrefab: {fileID: 4731624535627008187, guid: 6c66800f383c06646bb984461a244c62, type: 3}
   panel: {fileID: 1742999484}
+  GC: {fileID: 1567557608}
 --- !u!1 &1572337093
 GameObject:
   m_ObjectHideFlags: 0
@@ -47931,7 +47936,7 @@ GameObject:
   - component: {fileID: 1857501376}
   - component: {fileID: 1857501375}
   m_Layer: 5
-  m_Name: Text
+  m_Name: StartBtnTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49703,7 +49708,7 @@ GameObject:
   - component: {fileID: 1919683223}
   - component: {fileID: 1919683222}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StopBtnTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51605,8 +51610,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1567557608}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1567557611}
+        m_TargetAssemblyTypeName: ButtonPanelController, Assembly-CSharp
         m_MethodName: StartBtn
         m_Mode: 1
         m_Arguments:

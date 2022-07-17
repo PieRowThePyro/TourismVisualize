@@ -4,6 +4,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonPanelController : MonoBehaviour
 {
@@ -78,29 +80,31 @@ public class ButtonPanelController : MonoBehaviour
 
     public void GeneratePoints()
     {
-
-        foreach (Destination dest in Destinations)
+        if (!GC.isStarted)
         {
-            pool.Release(dest);
+            foreach (Destination dest in Destinations)
+            {
+                pool.Release(dest);
+            }
+            Destinations.Clear();
+            TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
+            GameController.ProblemSize = int.Parse(text.text);
+
+            List<int> list = Enumerable.Range(0, 100).ToList();
+            Extensions.Shuffle(list);
+
+            List<int> idList = list.GetRange(0, GameController.ProblemSize);
+            GameController.RealData = new Data(GameController.FullData, idList);
+
+            for (int i = 0; i < GameController.ProblemSize; i++)
+            {
+                Destination dest = pool.Get();
+                Destinations.Add(dest);
+                dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
+                //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
+            }
+            GC.isGenerated = true;
         }
-        Destinations.Clear();
-        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
-        GameController.ProblemSize = int.Parse(text.text);
-
-        List<int> list = Enumerable.Range(0, 100).ToList();
-        Extensions.Shuffle(list);
-
-        List<int> idList = list.GetRange(0, GameController.ProblemSize);
-        GameController.RealData = new Data(GameController.FullData, idList);
-
-        for (int i = 0; i < GameController.ProblemSize; i++)
-        {
-            Destination dest = pool.Get();
-            Destinations.Add(dest);
-            dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
-            //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
-        }
-        GC.isGenerated = true;
     }
 
     public void ChangeStatus()
@@ -150,30 +154,37 @@ public class ButtonPanelController : MonoBehaviour
     }
     public void StartBtn()
     {
-        if (GC.isGenerated)
+        if (!GC.isStarted)
+            if (GC.isGenerated)
+            {
+                GameController.PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+                GameController.ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+                GameController.MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+                GameController.CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+
+                GameController.manager.SetStrategy(new GeneticAlgorithm(GameController.RealData, GameController.PoolSize,
+                    GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
+
+                GC.isStarted = !GC.isStarted;
+                Time.timeScale = 1f;
+                panel.gameObject.transform.Find("StartBtn").gameObject.transform.Find("StartBtnTxt").GetComponent<TextMeshProUGUI>().text = "Reset";
+            }
+        if (GC.isStarted)
         {
-            GameController.PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-            GameController.ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-            GameController.MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-            GameController.CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
 
-            GameController.manager.SetStrategy(new GeneticAlgorithm(GameController.RealData, GameController.PoolSize,
-                GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
-
-            GC.isStarted = !GC.isStarted;
-            Time.timeScale = 1f;
         }
+
     }
     public void StopBtn()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1f)
         {
-            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Resume";
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnTxt").GetComponent<TextMeshProUGUI>().text = "Resume";
             Time.timeScale = 0;
         }
         else
         {
-            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Stop";
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnTxt").GetComponent<TextMeshProUGUI>().text = "Stop";
             Time.timeScale = 1;
         }
     }
