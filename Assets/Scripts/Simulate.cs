@@ -32,12 +32,12 @@ public class Simulate : MonoBehaviour
         {
             Instantiate(destinationPrefab, data.POI[i].Location, Quaternion.identity);
         }
-
+        Time.fixedDeltaTime = 1f;
     }
     // Start is called before the first frame update
     void Start()
     {
-        Time.fixedDeltaTime = 1f;
+        
     }
     void Update()
     {
@@ -72,7 +72,6 @@ public class Simulate : MonoBehaviour
                 GetLines(AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 1], data);
             }
         }
-        
     }
     public void GetLines(Solution s, Data data)
     {

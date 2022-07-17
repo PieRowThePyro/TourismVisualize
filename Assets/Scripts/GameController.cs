@@ -15,15 +15,21 @@ public class GameController : MonoBehaviour
     GameObject destinationPrefab;
     [SerializeField]
     GameObject panel;
-   
+    Data data; 
+    
+    [SerializeField]
+    Material DashedLine;
+    GeneticAlgorithm ga;
+    AntColonyAgorithm aco;
+
     [SerializeField]
     int desCount;
     float timer = 0;
-    bool findingPath = false;
     Destination[] destinations;
     List<GameObject> currentLines = new List<GameObject>();
     List<GameObject> linesToBeActive = new List<GameObject>();
-    StrategyManager manager;
+    public static StrategyManager manager;
+    List<Color> colors = new List<Color>() { Color.red, Color.green, Color.yellow, Color.white, Color.black };
 
     public static int PoolSize;
     public static float ElitismRate;
@@ -37,44 +43,63 @@ public class GameController : MonoBehaviour
     public static Data FullData;
     public static Data RealData;
 
-    bool isStarted = false;
+    public bool drawingPath = false;
+    public bool isStarted = false;
+    public bool isGenerated = false;
     private void Awake()
     {
-        FullData = new Data();
-        DataReader reader = new DataReader(destinationData,distanceData);
-        FullData.POI = reader.ReadDestination();
-        FullData.D = reader.ReadDistance();
-        manager = new StrategyManager();
+        //data = new Data();
+        //DataReader reader = new DataReader(destinationData, distanceData);
+        //data.POI = reader.ReadDestination();
+        //data.D = reader.ReadDistance();
 
+        //aco = new AntColonyAgorithm(data, 0.7, 1, 100);
+        //ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.3f);
+        //for (int i = 0; i < data.P; i++)
+        //{
+        //    Instantiate(destinationPrefab, data.POI[i].Location, Quaternion.identity);
+        //}
+        Time.fixedDeltaTime = 1f;
     }
 
-    // Start is called before the first frame update
-    public void StartBtn()
+
+    // Update is called once per frame
+    void Update()
     {
-        
-        PoolSize = int.Parse( panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-        ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-        MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-        CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
-        
-        manager.SetStrategy(new GeneticAlgorithm(RealData, PoolSize, ElitismRate, CrossoverRate, MutationRate));
-
-        isStarted = !isStarted;
-        Time.timeScale = 1f;
-
-
+        if (drawingPath)
+        {
+            if (timer > 0.05f)
+            {
+                linesToBeActive[0].SetActive(true);
+                linesToBeActive.RemoveAt(0);
+                timer = 0f;
+            }
+            timer += Time.deltaTime;
+            if (linesToBeActive.Count == 0)
+                drawingPath = false;
+        }
     }
-    public void StopBtn() {
-        Time.timeScale = 0;
-    }
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (isStarted)
-        {
-            manager.DoAlgorithm();
-
-        }
+            if (!drawingPath)
+            {
+                aco.Evolve();
+                if (AntColonyAgorithm.bestSolutions.Count == 1)
+                {
+                    GetLines(AntColonyAgorithm.bestSolutions[0], data);
+                }
+                else
+                {
+                    if (AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 1].Equals(AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 2]) == false)
+                    {
+                        foreach (var line in currentLines)
+                            GameObject.Destroy(line);
+                        currentLines.Clear();
+                        GetLines(AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 1], data);
+                    }
+                }
+            }
     }
 
     public void ChangeAlgorithm()
@@ -100,46 +125,54 @@ public class GameController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetLines(Solution s, Data data)
     {
-        if (findingPath)
+        int color = 0;
+        foreach (List<int> desSet in s.gene)
         {
-            if (timer > 0.3f)
+            for (int i = 0; i < desSet.Count - 1; i++)
             {
-                linesToBeActive[0].SetActive(true);
-                linesToBeActive.RemoveAt(0);
-                timer = 0f;
+                Vector3 des = data.POI[desSet[i]].Location;
+                Vector3 desNext = data.POI[desSet[i + 1]].Location;
+                GameObject line = new GameObject("Line");
+                LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
+                lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+                lineRenderer.startColor = colors[color];
+                lineRenderer.endColor = colors[color];
+                lineRenderer.startWidth = 0.1f;
+                lineRenderer.endWidth = 0.05f;
+                lineRenderer.positionCount = 2;
+                lineRenderer.useWorldSpace = true;
+                //For drawing line in the world space, provide the x,y,z values
+                lineRenderer.SetPosition(0, des); //x,y and z position of the starting point of the line
+                lineRenderer.SetPosition(1, desNext); //x,y and z position of the end point of the line
+                currentLines.Add(line);
+                linesToBeActive.Add(line);
+                line.SetActive(false);
             }
-            timer += Time.deltaTime;
-            if (linesToBeActive.Count == 0)
-                findingPath = false;
+            if (color < data.K - 1)
+            {
+                Vector3 des = data.POI[desSet[desSet.Count - 1]].Location;
+                Vector3 desNext = data.POI[s.gene[color + 1][0]].Location;
+                GameObject line = new GameObject("Line");
+                LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
+                lineRenderer.material = DashedLine;
+                lineRenderer.startWidth = 0.1f;
+                lineRenderer.endWidth = 0.05f;
+                lineRenderer.positionCount = 2;
+                lineRenderer.useWorldSpace = true;
+                //For drawing line in the world space, provide the x,y,z values
+                lineRenderer.SetPosition(0, des); //x,y and z position of the starting point of the line
+                lineRenderer.SetPosition(1, desNext); //x,y and z position of the end point of the line
+                currentLines.Add(line);
+                linesToBeActive.Add(line);
+                line.SetActive(false);
+            }
+            color++;
+
         }
+        drawingPath = true;
     }
-    public void GetLines(List<int> desSet)
-    {
-        for (int i = 0; i < desSet.Count - 1; i++)
-        {
-            Vector3 des = destinations[desSet[i]].Location;
-            Vector3 desNext = destinations[desSet[i + 1]].Location;
-            GameObject line = new GameObject("Line");
-            LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
-            lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
-            lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.red;
-            lineRenderer.startWidth = 0.05f;
-            lineRenderer.endWidth = 0.05f;
-            lineRenderer.positionCount = 2;
-            lineRenderer.useWorldSpace = true;
-            //For drawing line in the world space, provide the x,y,z values
-            lineRenderer.SetPosition(0, des); //x,y and z position of the starting point of the line
-            lineRenderer.SetPosition(1, desNext); //x,y and z position of the end point of the line
-            currentLines.Add(line);
-            linesToBeActive.Add(line);
-            line.SetActive(false);
-        }
-        findingPath = true;
-    }
-    
+
 
 }

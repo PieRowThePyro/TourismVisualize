@@ -15,6 +15,8 @@ public class ButtonPanelController : MonoBehaviour
     Destination destinationPrefab;
     [SerializeField]
     GameObject panel;
+    [SerializeField]
+    GameController GC;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
     bool isGenetic = GameController.IsGenetic;
@@ -98,8 +100,7 @@ public class ButtonPanelController : MonoBehaviour
             dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
             //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
         }
-
-
+        GC.isGenerated = true;
     }
 
     public void ChangeStatus()
@@ -147,5 +148,33 @@ public class ButtonPanelController : MonoBehaviour
         panel.gameObject.transform.Find("NumberOfAntsNumber").gameObject.SetActive(!isGenetic);
         panel.gameObject.transform.Find("NumberOfAntsSlider").gameObject.SetActive(!isGenetic);
     }
+    public void StartBtn()
+    {
+        if (GC.isGenerated)
+        {
+            GameController.PoolSize = int.Parse(panel.gameObject.transform.Find("PoolSizeNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.ElitismRate = float.Parse(panel.gameObject.transform.Find("ElitismNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.MutationRate = float.Parse(panel.gameObject.transform.Find("MutationRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+            GameController.CrossoverRate = float.Parse(panel.gameObject.transform.Find("CrossoverRateNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
 
+            GameController.manager.SetStrategy(new GeneticAlgorithm(GameController.RealData, GameController.PoolSize,
+                GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
+
+            GC.isStarted = !GC.isStarted;
+            Time.timeScale = 1f;
+        }
+    }
+    public void StopBtn()
+    {
+        if (Time.timeScale == 1)
+        {
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Resume";
+            Time.timeScale = 0;
+        }
+        else
+        {
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Stop";
+            Time.timeScale = 1;
+        }
+    }
 }
