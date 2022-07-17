@@ -4,6 +4,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonPanelController : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class ButtonPanelController : MonoBehaviour
     GameObject panel;
     [SerializeField]
     GameController GC;
+    [SerializeField]
+    GameObject resetBtn;
     private ObjectPool<Destination> pool;
     private List<Destination> Destinations = new List<Destination>();
     bool isGenetic = GameController.IsGenetic;
@@ -78,29 +82,31 @@ public class ButtonPanelController : MonoBehaviour
 
     public void GeneratePoints()
     {
-
-        foreach (Destination dest in Destinations)
+        if (!GC.isStarted)
         {
-            pool.Release(dest);
+            foreach (Destination dest in Destinations)
+            {
+                pool.Release(dest);
+            }
+            Destinations.Clear();
+            TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
+            GameController.ProblemSize = int.Parse(text.text);
+
+            List<int> list = Enumerable.Range(0, 100).ToList();
+            Extensions.Shuffle(list);
+
+            List<int> idList = list.GetRange(0, GameController.ProblemSize);
+            GameController.RealData = new Data(GameController.FullData, idList);
+
+            for (int i = 0; i < GameController.ProblemSize; i++)
+            {
+                Destination dest = pool.Get();
+                Destinations.Add(dest);
+                dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
+                //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
+            }
+            GC.isGenerated = true;
         }
-        Destinations.Clear();
-        TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
-        GameController.ProblemSize = int.Parse(text.text);
-
-        List<int> list = Enumerable.Range(0, 100).ToList();
-        Extensions.Shuffle(list);
-
-        List<int> idList = list.GetRange(0, GameController.ProblemSize);
-        GameController.RealData = new Data(GameController.FullData, idList);
-
-        for (int i = 0; i < GameController.ProblemSize; i++)
-        {
-            Destination dest = pool.Get();
-            Destinations.Add(dest);
-            dest.transform.position = new Vector3(GameController.RealData.POI[i].Location.x, GameController.RealData.POI[i].Location.y);
-            //Instantiate(destinationPrefab, GameController.RealData.POI[i].Location, Quaternion.identity);
-        }
-        GC.isGenerated = true;
     }
 
     public void ChangeStatus()
@@ -162,18 +168,34 @@ public class ButtonPanelController : MonoBehaviour
 
             GC.isStarted = !GC.isStarted;
             Time.timeScale = 1f;
+            panel.gameObject.transform.Find("StartBtn").gameObject.SetActive(false);
+            resetBtn.SetActive(true);
         }
+    }
+    public void ResetBtn()
+    {
+        panel.gameObject.transform.Find("StartBtn").gameObject.SetActive(true);
+        resetBtn.SetActive(false);
+        GC.drawingPath = false;
+        GC.isStarted = false;
+        foreach (var item in GC.currentLines)
+        {
+            Destroy(item);
+        }
+        GC.currentLines.Clear();
+        GC.linesToBeActive.Clear();
+        GC.Awake();
     }
     public void StopBtn()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1f)
         {
-            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Resume";
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnTxt").GetComponent<TextMeshProUGUI>().text = "Resume";
             Time.timeScale = 0;
         }
         else
         {
-            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnText").GetComponent<TextMeshProUGUI>().text = "Stop";
+            panel.gameObject.transform.Find("StopBtn").gameObject.transform.Find("StopBtnTxt").GetComponent<TextMeshProUGUI>().text = "Stop";
             Time.timeScale = 1;
         }
     }

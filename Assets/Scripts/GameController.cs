@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour
     GameObject destinationPrefab;
     [SerializeField]
     GameObject panel;
-    Data data; 
     
     [SerializeField]
     Material DashedLine;
@@ -26,8 +25,8 @@ public class GameController : MonoBehaviour
     int desCount;
     float timer = 0;
     Destination[] destinations;
-    List<GameObject> currentLines = new List<GameObject>();
-    List<GameObject> linesToBeActive = new List<GameObject>();
+    public List<GameObject> currentLines = new List<GameObject>();
+    public List<GameObject> linesToBeActive = new List<GameObject>();
     public static StrategyManager manager;
     List<Color> colors = new List<Color>() { Color.red, Color.green, Color.yellow, Color.white, Color.black };
 
@@ -46,13 +45,14 @@ public class GameController : MonoBehaviour
     public bool drawingPath = false;
     public bool isStarted = false;
     public bool isGenerated = false;
-    private void Awake()
+    public void Awake()
     {
-        data = new Data();
-        DataReader reader = new DataReader(destinationData, distanceData);
-        data.POI = reader.ReadDestination();
-        data.D = reader.ReadDistance();
 
+        FullData = new Data();
+        DataReader reader = new DataReader(destinationData, distanceData);
+        FullData.POI = reader.ReadDestination();
+        FullData.D = reader.ReadDistance();
+        manager = new StrategyManager();
         //aco = new AntColonyAgorithm(data, 0.7, 1, 100);
         //ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.3f);
         //for (int i = 0; i < data.P; i++)
@@ -81,25 +81,29 @@ public class GameController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (isStarted)
-            if (!drawingPath)
+        if (isGenerated)
+            if (isStarted)
             {
-                aco.Evolve();
-                if (AntColonyAgorithm.bestSolutions.Count == 1)
+                manager.DoAlgorithm();
+                if (!drawingPath)
                 {
-                    GetLines(AntColonyAgorithm.bestSolutions[0], data);
-                }
-                else
-                {
-                    if (AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 1].Equals(AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 2]) == false)
+                    if (StrategyManager.BestSolutions.Count == 1)
                     {
-                        foreach (var line in currentLines)
-                            GameObject.Destroy(line);
-                        currentLines.Clear();
-                        GetLines(AntColonyAgorithm.bestSolutions[AntColonyAgorithm.bestSolutions.Count - 1], data);
+                        GetLines(StrategyManager.BestSolutions[0], RealData);
+                    }
+                    else
+                    {
+                        if (StrategyManager.BestSolutions[StrategyManager.BestSolutions.Count - 1].Equals(StrategyManager.BestSolutions[StrategyManager.BestSolutions.Count - 2]) == false)
+                        {
+                            foreach (var line in currentLines)
+                                GameObject.Destroy(line);
+                            currentLines.Clear();
+                            GetLines(StrategyManager.BestSolutions[StrategyManager.BestSolutions.Count - 1], RealData);
+                        }
                     }
                 }
             }
+            
     }
 
     public void ChangeAlgorithm()
