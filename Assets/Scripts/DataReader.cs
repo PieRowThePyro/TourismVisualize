@@ -29,7 +29,8 @@ public class DataReader
                 End = float.Parse(values[3]),
                 Cost = float.Parse(values[4]),
                 Duration = float.Parse(values[5]),
-                Rating = float.Parse(values[6])
+                Rating = float.Parse(values[6]),
+                Title = values[7]
             };
         }
         return destinations;
