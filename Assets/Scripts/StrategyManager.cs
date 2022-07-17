@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StrategyManager
 {
@@ -30,6 +31,16 @@ public class StrategyManager
     {
         Solution s = _strategy.Evolve();
         BestSolutions.Add(s);
-        Debug.Log(s.cal_fitness());
+        DoAlgorithmEvent?.Invoke(this, new SolutionInfo(s.cal_fitness()));
     } 
+    public static event EventHandler<SolutionInfo> DoAlgorithmEvent;
 }
+public class SolutionInfo : EventArgs
+    {
+        public float fitness;
+
+        public SolutionInfo(float fitness)
+        {
+            this.fitness = fitness;
+        }
+    }

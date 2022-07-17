@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LineChartController : MonoBehaviour
 {
+
     List<GameObject> lineList = new List<GameObject>();
 
     private DD_DataDiagram m_DataDiagram;
     //private RectTransform DDrect;
 
-    private bool m_IsContinueInput = true;
+    private bool m_IsContinueInput = false;
     private float m_Input = 0f;
     private float h = 0;
 
@@ -29,7 +30,7 @@ public class LineChartController : MonoBehaviour
     void Start()
     {
 
-        GameObject dd = GameObject.Find("DataDiagram");
+        GameObject dd = GameObject.Find("DataDiagram (1)");
         if (null == dd)
         {
             Debug.LogWarning("can not find a gameobject of DataDiagram");
@@ -40,6 +41,7 @@ public class LineChartController : MonoBehaviour
         m_DataDiagram.PreDestroyLineEvent += (s, e) => { lineList.Remove(e.line); };
 
         AddALine();
+        StrategyManager.DoAlgorithmEvent += onButton;
     }
 
     // Update is called once per frame
@@ -52,9 +54,7 @@ public class LineChartController : MonoBehaviour
     {
 
         m_Input += Time.deltaTime;
-        float currentFitness = GeneticAlgorithm.bestSolutions[0].cal_fitness();
-        ContinueInput(currentFitness);
-        GeneticAlgorithm.bestSolutions.RemoveAt(0);
+        ContinueInput(m_Input);
     }
 
     private void ContinueInput(float f)
@@ -70,21 +70,22 @@ public class LineChartController : MonoBehaviour
         foreach (GameObject l in lineList)
         {
             m_DataDiagram.InputPoint(l, new Vector2(0.1f,
-                f));
+                (Mathf.Sin(f + d) + 1f) * 2f));
             d += 1f;
         }
     }
-
-    public void onButton()
+    private float current = 10;
+    public void onButton(object sender, SolutionInfo s)
     {
-
+        current -= 0.2f;
         if (null == m_DataDiagram)
             return;
-
+            
         foreach (GameObject l in lineList)
         {
-            m_DataDiagram.InputPoint(l, new Vector2(1, Random.value * 4f));
+            m_DataDiagram.InputPoint(l, new Vector2(1, s.fitness));
         }
+        
     }
 
     public void OnAddLine()
@@ -110,4 +111,5 @@ public class LineChartController : MonoBehaviour
         m_IsContinueInput = !m_IsContinueInput;
 
     }
+
 }
