@@ -48,10 +48,10 @@ public class GameController : MonoBehaviour
     public bool isGenerated = false;
     private void Awake()
     {
-        //data = new Data();
-        //DataReader reader = new DataReader(destinationData, distanceData);
-        //data.POI = reader.ReadDestination();
-        //data.D = reader.ReadDistance();
+        data = new Data();
+        DataReader reader = new DataReader(destinationData, distanceData);
+        data.POI = reader.ReadDestination();
+        data.D = reader.ReadDistance();
 
         //aco = new AntColonyAgorithm(data, 0.7, 1, 100);
         //ga = new GeneticAlgorithm(data, 100, 0.1f, 0.9f, 0.3f);
