@@ -11,4 +11,5 @@ public class Destination : MonoBehaviour
     public float Duration { get; set; }
     public float Cost { get; set; }
     public float Rating { get; set; }
+    public string Title { get; set; }
 }
