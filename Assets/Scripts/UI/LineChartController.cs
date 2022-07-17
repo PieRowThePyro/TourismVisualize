@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LineChartController : MonoBehaviour
 {
@@ -43,7 +44,6 @@ public class LineChartController : MonoBehaviour
         AddALine();
         StrategyManager.DoAlgorithmEvent += onButton;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -93,17 +93,6 @@ public class LineChartController : MonoBehaviour
         AddALine();
     }
 
-    public void OnRectChange()
-    {
-
-        if (null == m_DataDiagram)
-            return;
-
-        Rect rect = new Rect(Random.value * Screen.width, Random.value * Screen.height,
-            Random.value * Screen.width / 2, Random.value * Screen.height / 2);
-
-        m_DataDiagram.rect = rect;
-    }
 
     public void OnContinueInput()
     {

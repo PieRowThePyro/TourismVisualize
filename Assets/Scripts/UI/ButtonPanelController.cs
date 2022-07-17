@@ -174,7 +174,7 @@ public class ButtonPanelController : MonoBehaviour
                 GameController.ElitismRate, GameController.CrossoverRate, GameController.MutationRate));
 
             GC.isStarted = !GC.isStarted;
-            Time.timeScale = 1f;
+            //Time.timeScale = 1f;
             panel.gameObject.transform.Find("StartBtn").gameObject.SetActive(false);
             resetBtn.SetActive(true);
         }
