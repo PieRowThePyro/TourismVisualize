@@ -185,7 +185,14 @@ public class ButtonPanelController : MonoBehaviour
             Destroy(item);
         }
         GC.currentLines.Clear();
+        foreach (var item in GC.currentArrows)
+        {
+            Destroy(item);
+        }
+        GC.currentArrows.Clear();
         GC.linesToBeActive.Clear();
+        GC.arrowsToBeActive.Clear();
+
         GC.Awake();
     }
     public void StopBtn()
