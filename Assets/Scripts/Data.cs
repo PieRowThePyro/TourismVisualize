@@ -36,7 +36,7 @@ public class Data
     public float w4;
     public float w5;
 
-    public Data(Data data, List<int> destinations) {
+    public Data(Data data, List<int> destinations, int tripNumber) {
         //Viet kieu deo gi day?
         for (int i = 0; i < destinations.Count; i++) {
             this.POI[i] = data.POI[destinations[i]];
@@ -44,7 +44,7 @@ public class Data
                 this.D[i, j] = data.D[destinations[i], destinations[j]];
             }
         }
-        K = 2;
+        K = tripNumber;
         P = destinations.Count;
         this.C_max[0] = 5000000f;
         this.C_max[1] = 5000000f;

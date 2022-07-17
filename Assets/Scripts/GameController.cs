@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     public static float Alpha;
     public static int NumberOfAnts;
     public static int ProblemSize;
+    public static int TripNumber;
     public static bool IsGenetic = true;
     public static Data FullData;
     public static Data RealData;

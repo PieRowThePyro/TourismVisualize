@@ -89,6 +89,8 @@ public class ButtonPanelController : MonoBehaviour
                 pool.Release(dest);
             }
             Destinations.Clear();
+            GameController.TripNumber = int.Parse(panel.gameObject.transform.Find("TripNumberNumber").gameObject.GetComponent<TextMeshProUGUI>().text);
+
             TextMeshProUGUI text = panel.gameObject.transform.Find("ProblemSizeNumber").gameObject.GetComponent<TextMeshProUGUI>();
             GameController.ProblemSize = int.Parse(text.text);
 
@@ -96,7 +98,7 @@ public class ButtonPanelController : MonoBehaviour
             Extensions.Shuffle(list);
 
             List<int> idList = list.GetRange(0, GameController.ProblemSize);
-            GameController.RealData = new Data(GameController.FullData, idList);
+            GameController.RealData = new Data(GameController.FullData, idList, GameController.TripNumber);
 
             for (int i = 0; i < GameController.ProblemSize; i++)
             {
