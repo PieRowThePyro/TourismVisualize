@@ -14,8 +14,12 @@ public class GameController : MonoBehaviour
     [SerializeField]
     GameObject destinationPrefab;
     [SerializeField]
+    GameObject arrowPrefab;
+    [SerializeField]
     GameObject panel;
-    
+    [SerializeField]
+    Camera mainCam;
+
     [SerializeField]
     Material DashedLine;
     GeneticAlgorithm ga;
@@ -27,6 +31,8 @@ public class GameController : MonoBehaviour
     Destination[] destinations;
     public List<GameObject> currentLines = new List<GameObject>();
     public List<GameObject> linesToBeActive = new List<GameObject>();
+    public List<GameObject> currentArrows = new List<GameObject>();
+    public List<GameObject> arrowsToBeActive = new List<GameObject>();
     public static StrategyManager manager;
     List<Color> colors = new List<Color>() { Color.red, Color.green, Color.yellow, Color.white, Color.black };
 
@@ -73,6 +79,8 @@ public class GameController : MonoBehaviour
             {
                 linesToBeActive[0].SetActive(true);
                 linesToBeActive.RemoveAt(0);
+                arrowsToBeActive[0].SetActive(true);
+                arrowsToBeActive.RemoveAt(0);
                 timer = 0f;
             }
             timer += Time.deltaTime;
@@ -99,6 +107,9 @@ public class GameController : MonoBehaviour
                             foreach (var line in currentLines)
                                 GameObject.Destroy(line);
                             currentLines.Clear();
+                            foreach (var arrow in currentArrows)
+                                GameObject.Destroy(arrow);
+                            currentArrows.Clear();
                             GetLines(StrategyManager.BestSolutions[StrategyManager.BestSolutions.Count - 1], RealData);
                         }
                     }
@@ -154,6 +165,17 @@ public class GameController : MonoBehaviour
                 currentLines.Add(line);
                 linesToBeActive.Add(line);
                 line.SetActive(false);
+                GameObject arrow = Instantiate(arrowPrefab, (desNext + des) / 2, Quaternion.identity);
+                var relativePos = desNext - des;
+                var angle = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+                var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                arrow.transform.rotation = rotation;
+                SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
+                sr.color = colors[color];
+                currentArrows.Add(arrow);
+                arrowsToBeActive.Add(arrow);
+                arrow.SetActive(false);
+
             }
             if (color < data.K - 1)
             {
@@ -172,6 +194,16 @@ public class GameController : MonoBehaviour
                 currentLines.Add(line);
                 linesToBeActive.Add(line);
                 line.SetActive(false);
+                GameObject arrow = Instantiate(arrowPrefab, (desNext + des) / 2, Quaternion.identity);
+                var relativePos = desNext - des;
+                var angle = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+                var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.rotation = rotation;
+                SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
+                sr.color = Color.white;
+                currentArrows.Add(arrow);
+                arrowsToBeActive.Add(arrow);
+                arrow.SetActive(false);
             }
             color++;
 
